@@ -4,7 +4,7 @@ var google = require('googleapis');
 var GoogleAuth = require('google-auth-library');
 var async = require('async');
 var express = require('express');
-var Feed = require('feed');
+var RSS = require('rss');
 
 var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 var TOKEN_PATH = 'credentials/gmail-api-quickstart.json';
@@ -275,25 +275,12 @@ var pushToFeed = function(list,rss,callback) {
 				edate = heads[h].value;
 			}
 		}
-	
-// title:          options.title,
-// link:           options.link,
-// description:    options.description,
-// date:           options.date,
-// image:          options.image,
-// author:         options.author,
-// contributor:    options.contributor,	// Atom only
-// guid:           options.guid,
-// id:             options.id,
-// content:        options.content,
-// copyright:		options.copyright	// Atom only				
-	
-		
-		rss.addItem({
+
+		rss.item({
 			title: subj
-			//,author: efrom
+			,author: efrom
 			,id: id
-			,link: 'http://localhost/?'+id
+			,url: 'http://localhost/?'+id
 			,description: desc
 			,date: jsDate
 		});
@@ -306,16 +293,13 @@ function main() {
 	var app = express();
 	
 	app.get('/rssmail',function(req,res) {
-		var rss = new Feed({
-			title:          'Rasberry Mail',
-			description:    'Rasberry Mail - rasberryred@gmail.com',
-			link:           'https://rasberry.us.to/'
-			,author: {
-				name:       'Rasberry',
-				email:      'rasberryred@gmail.com',
-				link:       'https://rasberry.us.to/'
-			}
-
+		var rss = new RSS({
+			title: 'Rasberry Mail',
+			description: 'Rasberry Mail - rasberryred@gmail.com',
+			feed_url: 'https://rasberry.us.to/',
+			site_url: 'https://rasberry.us.to/',
+			language: 'en',
+			pubDate: new Date()
 		});
 
 		async.waterfall([
@@ -330,7 +314,8 @@ function main() {
 				//res.send('Not found', 404);
 			} else {
 				res.set('Content-Type', 'text/xml');
-				res.send(rss.render('rss-2.0'));
+				var xml = rss.xml();
+				res.send(xml);
 				//res.set('Content-Type', 'application/atom+xml');
 				//res.send(rss.render('atom-1.0'));
 			}
