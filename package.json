@@ -1,6 +1,12 @@
 {
+  "version": "0.1.0",
+  "name": "rssproxy",
+  "description": "Turn custom list content into an Rss Feed",
+  "license": "MIT",
   "dependencies": {
     "async": "^1.4.2",
+    "express": "^4.13.0",
+    "feed": "^0.2.6",
     "google-auth-library": "^0.9.6",
     "google-batch": "0.0.6",
     "googleapis": "^2.1.3",
