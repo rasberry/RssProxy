@@ -280,7 +280,7 @@ var pushToFeed = function(list,rss,callback) {
 			title: subj
 			,author: efrom
 			,id: id
-			,url: 'http://localhost/?'+id
+			,url: 'https://mail.google.com/mail/#inbox/'+id
 			,description: desc
 			,date: jsDate
 		});
@@ -296,7 +296,7 @@ function main() {
 		var rss = new RSS({
 			title: 'Rasberry Mail',
 			description: 'Rasberry Mail - rasberryred@gmail.com',
-			feed_url: 'https://rasberry.us.to/',
+			feed_url: 'https://rasberry.us.to/rssproxy/',
 			site_url: 'https://rasberry.us.to/',
 			language: 'en',
 			pubDate: new Date()
@@ -322,11 +322,11 @@ function main() {
 		});
 	});
 	
-	var server = app.listen(3000, function() {
+	var server = app.listen(3001, function() {
 		var host = server.address().address;
 		var port = server.address().port;
 	
-		console.log('Example app listening at http://%s:%s', host, port);
+		console.log('app listening at http://%s:%s', host, port);
 	});
 }
 main();
