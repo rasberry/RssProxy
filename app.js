@@ -7,7 +7,7 @@ var express = require('express');
 var RSS = require('rss');
 
 var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
-var TOKEN_PATH = 'credentials/gmail-api-quickstart.json';
+var TOKEN_PATH = 'gmail-api-quickstart.json';
 
 /**
  * Load client secrets from a local file.
@@ -322,7 +322,7 @@ function main() {
 		});
 	});
 	
-	var server = app.listen(3001, function() {
+	var server = app.listen(3001, 'localhost', function() {
 		var host = server.address().address;
 		var port = server.address().port;
 	
