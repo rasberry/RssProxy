@@ -94,34 +94,6 @@ function storeToken(token) {
 }
 
 /**
-* Lists the labels in the user's account.
-*
-* @param {google.auth.OAuth2} auth An authorized OAuth2 client.
-*/
-// function listLabels(auth) {
-// 	var gmail = google.gmail('v1');
-// 	gmail.users.labels.list({
-// 		auth: auth,
-// 		userId: 'me',
-// 	}, function(err, response) {
-// 		if (err) {
-// 			console.log('The API returned an error: ' + err);
-// 			return;
-// 		}
-// 		var labels = response.labels;
-// 		if (labels.length == 0) {
-// 			console.log('No labels found.');
-// 		} else {
-// 			console.log('Labels:');
-// 			for (var i = 0; i < labels.length; i++) {
-// 				var label = labels[i];
-// 				console.log('- %s', label.name);
-// 			}
-// 		}
-// 	});
-// }
-
-/**
  * Gets the list of message id's
  * 
  * @param {google.auth.OAuth2} auth The OAuth2 client to use for authentication
@@ -217,38 +189,6 @@ function printMessageList(list,callback) {
 	callback();
 }
 
-// /**
-//  * Retrieve Messages in user's mailbox matching query.
-//  *
-//  * @param  {String} userId User's email address. The special value 'me'
-//  * can be used to indicate the authenticated user.
-//  * @param  {String} query String used to filter the Messages listed.
-//  * @param  {Function} callback Function to call when the request is complete.
-//  */
-// function listMessages(userId, query, callback) {
-// 	var getPageOfMessages = function(request, result) {
-// 		request.execute(function(resp) {
-// 			result = result.concat(resp.messages);
-// 			var nextPageToken = resp.nextPageToken;
-// 			if (nextPageToken) {
-// 				request = gapi.client.gmail.users.messages.list({
-// 					'userId': userId,
-// 					'pageToken': nextPageToken,
-// 					'q': query
-// 				});
-// 				getPageOfMessages(request, result);
-// 			} else {
-// 				callback(result);
-// 			}
-// 		});
-// 	};
-// 	var initialRequest = gapi.client.gmail.users.messages.list({
-// 		'userId': userId,
-// 		'q': query
-// 	});
-// 	getPageOfMessages(initialRequest, []);
-// }
-
 var pushToFeed = function(list,rss,callback) {
 	list.sort(function(a,b) {
 		return b.internalDate - a.internalDate;
@@ -293,6 +233,7 @@ function main() {
 	var app = express();
 	
 	app.get('/rssmail',function(req,res) {
+		//TODO move these settings to the config file
 		var rss = new RSS({
 			title: 'My Mail',
 			description: 'My Mail - myaddress@someplace.com',
