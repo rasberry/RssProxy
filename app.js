@@ -294,10 +294,10 @@ function main() {
 	
 	app.get('/rssmail',function(req,res) {
 		var rss = new RSS({
-			title: 'Rasberry Mail',
-			description: 'Rasberry Mail - rasberryred@gmail.com',
-			feed_url: 'https://rasberry.us.to/rssproxy/',
-			site_url: 'https://rasberry.us.to/',
+			title: 'My Mail',
+			description: 'My Mail - myaddress@someplace.com',
+			feed_url: 'https://mysite.com/rssproxy/',
+			site_url: 'https://mysite.com/',
 			language: 'en',
 			pubDate: new Date()
 		});
@@ -330,35 +330,3 @@ function main() {
 	});
 }
 main();
-
-// app.get('/rss', function(req, res) {
-
-// 	// Initializing feed object
-// 	var rss = new feed({
-// 		title:          'Rasberry Mail',
-// 		description:    'Rasberry Mail - rasberryred@gmail.com',
-// 		link:           'https://rasberry.us.to/'
-// 	});
-
-// 	// Function requesting the last 5 posts to a database. This is just an
-// 	// example, use the way you prefer to get your posts.
-// 	Post.findPosts(function(posts, err) {
-// 		if(err)
-// 			res.send('404 Not found', 404);
-// 		else {
-// 			for(var key in posts) {
-// 				feed.item({
-// 					title:          posts[key].title,
-// 					link:           posts[key].url,
-// 					description:    posts[key].description,
-// 					date:           posts[key].date
-// 				});
-// 			}
-// 			// Setting the appropriate Content-Type
-// 			res.set('Content-Type', 'text/xml');
-
-// 			// Sending the feed as a response
-// 			res.send(feed.render('rss-2.0'));
-// 		}
-// 	});
-// });
